@@ -2,55 +2,62 @@ import React from 'react';
 import {
   CDBSidebar,
   CDBSidebarContent,
-  CDBSidebarFooter,
   CDBSidebarHeader,
   CDBSidebarMenu,
   CDBSidebarMenuItem,
+  CDBSidebarFooter,
 } from 'cdbreact';
-import { NavLink } from 'react-router-dom';
 
-const Dashboard = () => {
+const SideBar = () => {
   return (
-    <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
-       <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-          <a href="/" className="text-decoration-none" style={{ color: 'inherit' }}>
-            Sidebar
-          </a>
-        </CDBSidebarHeader>
+    <div className='row'>
+      <div className='col-1'>
+    <CDBSidebar className='bg-white'  >
+    <CDBSidebarHeader  prefix={<i className="fa fa-bars text-secondary " />}> <img src={require("../images/img1.png")} alt="hello:" /></CDBSidebarHeader>
+    <CDBSidebarContent>
+      <CDBSidebarMenu>
+        <CDBSidebarMenuItem  className="  text-dark " icon="th-large">Dashboard</ CDBSidebarMenuItem>
+        <CDBSidebarMenuItem   className=" text-dark" icon="sticky-note">Components</CDBSidebarMenuItem>
+        <CDBSidebarMenuItem   className=" text-dark" icon="credit-card" iconType="solid">
+          Metrics
+        </CDBSidebarMenuItem>
+      </CDBSidebarMenu>
+    </CDBSidebarContent>
 
-        <CDBSidebarContent className="sidebar-content">
-          <CDBSidebarMenu>
-            {/* <NavLink exact to="/" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="columns">Dashboard</CDBSidebarMenuItem>
-            </NavLink> */}
-            <NavLink to="/tables">
-              <CDBSidebarMenuItem icon="table">Tables</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink to="/profile">
-              <CDBSidebarMenuItem icon="user">Profile page</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink to="/analytics" >
-              <CDBSidebarMenuItem icon="chart-line">Analytics</CDBSidebarMenuItem>
-            </NavLink>
+    <CDBSidebarFooter>
+      <div
+        className="sidebar-btn-wrapper" 
+        style={{padding: '20px 5px'}}
+      >
+        Sidebar Footer
+      </div>
+    </CDBSidebarFooter>
+  </CDBSidebar>
+ </div>
+ <div className='col-11'>
+  <div className=' p-4 shadow'>
 
-            <NavLink  to="/hero404" target="_blank" >
-              <CDBSidebarMenuItem icon="exclamation-circle">404 page</CDBSidebarMenuItem>
-            </NavLink>
-          </CDBSidebarMenu>
-        </CDBSidebarContent>
+  </div>
 
-        <CDBSidebarFooter >
-          <div
-            style={{
-              padding: '20px 5px',
-            }}
-          >
-            Sidebar Footer
-          </div>
-        </CDBSidebarFooter>
-    
-    </div>
-  );
+ </div>
+ {/* <div className='col-3'>
+  <div className='border p-4 shadow'>
+
+  </div>
+
+ </div> */}
+
+  </div>
+);
 };
+export default SideBar;
 
-export default Dashboard;
+
+
+
+
+
+
+
+
+
