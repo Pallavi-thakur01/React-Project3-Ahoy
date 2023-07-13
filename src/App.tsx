@@ -5,17 +5,14 @@ import Login from './pages/Login';
 import Passcode from './pages/Passcode';
 import Location from './pages/Location';
 import { Routes, Route } from "react-router-dom";
- import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/Dashboard';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
 
 function App() {
   return (
     <div className="App">
-     
-
-     
-      <Routes>
+     <Routes>
         <Route path="/" element={<Login />}/>
         
           <Route path="passcode" element={<Passcode />} />

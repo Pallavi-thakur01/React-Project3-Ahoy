@@ -1,42 +1,57 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { useState } from "react";
 
 import axios from "axios";
-import { ChangeEvent } from 'react';
+import { useNavigate } from "react-router-dom";
 
-import { Link } from "react-router-dom";
-
-
-
-
-
-
+type FormValues = {
+  emailId: string;
+  password:string;
+};
 
 function Login() {
- 
+
+  const navigate = useNavigate();
+
   
+ const[validated,setValidated]=useState(false);
+  const [error, setError] = useState<FormValues>({
+    emailId: "",
+    password:""
+  });
+
   const [data, setData] = useState({
     emailId: "",
     password: ""
+
   });
   const handleChange = (e: ChangeEvent<HTMLInputElement>)=> {
+    
     const value = e.target.value;
     setData({
       ...data,
       [e.target.name]: value
     });
+    
+
+     setError({emailId:"",password:""});
   };
   const handleSubmit = (e: any) => {
     debugger;
     e.preventDefault();
+
+   
+
     const userData = {
+      "businessId": "4",
       emailId: data.emailId,
+      "applicationId": "58",
       password: data.password
 
       
     };
-    
+
     axios
       .post("https://rehntitapistaging.azurewebsites.net/api/Auth/Login", userData)
       .then((response) => {
@@ -53,19 +68,25 @@ function Login() {
         }
       });
       console.log(userData,"dataaaa");
+      debugger;
+      navigate("/passcode");
+      
+     
+     
   };
 
 
   const [Show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  
 
 
   
   return (
     <>
       <div className="  mainBox container rounded shadow align-item-center">
-        <form>
+        <form onSubmit={handleSubmit}>
           {/* <!-- Email input --> */}
           <div className=" mainBox  container py-2">
             <div className="col-8 h-2 p-4 rounded-circle">
@@ -73,53 +94,64 @@ function Login() {
             </div>
           </div>
           <div className="px-3">
+            
             <div className="row">
-              <div className="form-outline mb-4 col">
-                <label  className="form-label ms-auto control-label ">
+              <div className="form-outline mb-4 col form-group">
+                <label htmlFor="validationDefault03" className="form-label ms-auto control-label ">
                   Email{" "}
                 </label>
                 <input
-                  type="emailId"
+                id="validationDefault03"
+               
+                 
                   name="emailId"
-                  id="form2Example1"
+                  
                   className="form-control  rounded-pill"
                   placeholder="Email Address"
                   onChange={handleChange}
                   value={data.emailId}
+                 
                   required
                 />
+                 
+                
               </div>
             </div>
 
             {/* <!-- Password input --> */}
             <div className="row">
-              <div className="form-outline mb-4 ">
-                <label className="form-label control-label ">Password</label>
+              <div className="form-outline mb-4 form-group ">
+                <label htmlFor="validationServer04"   className="form-label control-label ">Password</label>
                 <input
-                  type="password"
+                  // type="password"
                   name="password"
-                  id="form2Example2"
+                  id="validationServer04"
                   className="form-control rounded-pill"
                   placeholder="Password "
                   onChange={handleChange}
                   value={data.password}
+              
                   required
                 />
+               
+              
+            
               </div>
             </div>
 
-            {/* <!-- 2 column grid layout for inline styling --> */}
+          
             <div className="row mb-2">
               <div className="col-5  d-flex">
                 {/* <!-- Checkbox --> */}
                 <div className="form-check">
                   <input
-                    className="form-check-input"
+                    className="form-check-input "
                     type="checkbox"
                     value=""
                     id="form2Example31"
+                    required
                   />
-                  <label className="form-check-label  "> Remember me </label>
+                  <label className="form-check-label "> Remember me </label>
                 </div>
               </div>
 
@@ -134,17 +166,17 @@ function Login() {
             {/* <!-- Submit button --> */}
             <div className="row">
               <div className="col  ">
-               <Link to="/passcode" >
+               {/* <Link to="/passcode" > */}
                
               
                 <button
-                  type="button"
+                  type="submit"
                   className="btn btn-danger loginButton  mb-3 buttonClass m-4 px-3 fw-semibold  rounded-pill"
-                    //  onClick={handleSubmit}
+                    // onClick={ handleSubmit}
              >
                   Log in
                 </button>
-                </Link>
+                {/* </Link> */}
               </div>
             </div>
 

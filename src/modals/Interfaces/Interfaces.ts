@@ -1,4 +1,7 @@
-export default interface User{
-    name: string;
-   
-  }
+ export default interface IButtonBlockProps {
+  actions: {
+    tool: string;
+    onClick: () => void;
+  }[];
+  loader: any;
+}

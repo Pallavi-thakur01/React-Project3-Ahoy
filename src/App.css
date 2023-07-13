@@ -130,4 +130,10 @@ a{
 }
 
 
+.form-check-input:checked {
+  background-color:#f54952 !important;
+  border-color: #f54952 !important;
+}
+
+
 
