@@ -8,6 +8,8 @@ import { Routes, Route } from "react-router-dom";
 import Dashboard from './pages/Dashboard';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
+import '../node_modules/react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   return (

@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -117,6 +117,7 @@ a{
   background-color:#f54952 ;
   color:white  !important;
   cursor: pointer;
+  cursor: pointer;
   
   
 }
@@ -124,9 +125,10 @@ a{
   display: block;
    float: right;
    position: relative;
-   top: -50px;
+   top: -40px;
    left: 15px;
    z-index: 1002;
+   cursor: pointer;
 }
 
 
@@ -134,6 +136,96 @@ a{
   background-color:#f54952 !important;
   border-color: #f54952 !important;
 }
+.ant-layout .ant-layout-sider-children {
+ 
+  background-color: white;
+}
+.ant-layout.ant-layout-has-sider >.ant-layout, :where(.css-dev-only-do-not-override-1m62vyb).ant-layout.ant-layout-has-sider >.ant-layout-content {
+  width: 0;
+  background-color: white;
+}
+.ant-menu-light .ant-menu-item-selected, :where(.css-dev-only-do-not-override-1m62vyb).ant-menu-light>.ant-menu .ant-menu-item-selected {
+  color:#f54952;
+  border-left: #f54952;
+}
+.zindexClass{
+  z-index: 10000;
+}
+.searchClass{
+  margin-left: 500px;
+  border-radius: 30px;
+}
+.loginButton{
+  width: 90px;
+  height: 40px;
+}
+.cardClass{
+  width: 100%;
+    height: 55px;
+    max-width: 55px;
+   color:white;
+    line-height: 55px;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 12px;
+    background: #660f56;
+    cursor: pointer;
+}
+.cardThree{
+  background: #AE2D68;
+  cursor: pointer;
 
+}
+.cardTwo{
+  background: #660f56;
+  cursor: pointer;
 
+}
+.cardFour{
+ background-color: rgb(40, 6, 89);
+ cursor: pointer;
 
+}
+.cardFive{
+  background: rgb(245, 73, 82);
+  cursor: pointer;
+
+}
+.ant-card .ant-card-body {
+  padding: 9px;
+  margin-left: 1px;
+}
+.cardMain{
+  height: 100px;
+  width: 150px;
+  padding: 5px !important;
+}
+.carousel-control-next-icon {
+  margin-left: 40px;
+  background-color: black;
+ }
+.carousel-control-prev-icon {
+ 
+  background-color: black;
+ }
+ .paraColor{
+  color: #660f56;
+  
+
+ }
+ .paraColor2{
+  color:#AE2D68;
+  
+
+ }
+ .paraColor3{
+  color: rgb(40, 6, 89);
+  
+
+ }
+ .paraColor4{
+  color:rgb(245, 73, 82)
+  
+
+ }
+ 
