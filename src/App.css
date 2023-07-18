@@ -125,7 +125,7 @@ a{
   display: block;
    float: right;
    position: relative;
-   top: -40px;
+   top: -50px;
    left: 15px;
    z-index: 1002;
    cursor: pointer;
@@ -228,4 +228,19 @@ a{
   
 
  }
+ .circle {
+  height: 15px;
+  width: 15px;
+  border: 1px solid #ccc;
+  border-radius: 100%;
+}
+.active{
+  background: #f54952;
+  border-color:#f54952;
+}
+
+.carousel-item.active {
+  background: white !important;
+   border-color:white; 
+}
  

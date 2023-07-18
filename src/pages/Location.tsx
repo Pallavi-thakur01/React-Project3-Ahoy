@@ -1,7 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 function Location() {
+
+//   let b=localStorage.getItem('message');
+
+// useEffect(()=>{
+//   toast.success(b , {
+//       position: toast.POSITION.BOTTOM_RIGHT,
+//      });
+//      localStorage.clear();
+// },[])
+  
   return (
     <>
       <h2 className=" my-3">Welcome Andrew Adrian</h2>
@@ -56,6 +68,7 @@ function Location() {
         </div>
         </div>
       </div>
+      <ToastContainer/>
     </>
   );
 }
