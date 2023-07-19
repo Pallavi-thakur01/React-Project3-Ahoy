@@ -7,8 +7,9 @@ import { ChangeEvent } from "react";
 import axios from "axios";
 import { message } from "antd";
 import styled from "@emotion/styled";
-import { useNavigate,useParams } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
+import { Formik, Form as FormikForm } from "formik";
+import * as yup from "yup";
 
 interface passcodeValue {
   businessId: number;
@@ -23,10 +24,13 @@ const Buttons = styled.div`
   text-align: left;
   justify-content: center;
 `;
+const schema = yup.object().shape({
+  emailId: yup.string().email("Please enter a valid e-mail").required(),
+});
 
 const Passcode: React.FC = () => {
   const navigate = useNavigate();
-  
+
   const { id } = useParams();
   let passcodeVal: string = "";
   const [passCode, setPassCode] = useState("");
@@ -50,9 +54,6 @@ const Passcode: React.FC = () => {
     console.log(dataa);
   };
 
-
-  
-
   let b = localStorage.getItem("message");
   console.log(message);
   useEffect(() => {
@@ -67,13 +68,12 @@ const Passcode: React.FC = () => {
     passcodeVal = passCode + val;
     setPassCode(passcodeVal);
   };
-  const handleSubmit1 = (e: any) => {
-    e.preventDefault();
+  const handleSubmit1 = (values: any) => {
     setSpinner1(true);
 
     const userDataa = {
       businessId: "4",
-      emailId: dataa.emailId,
+      emailId: values.emailId,
     };
 
     axios
@@ -83,15 +83,15 @@ const Passcode: React.FC = () => {
       )
       .then((response) => {
         console.log(response);
-        
+
         setSpinner1(false);
         setShow(false);
 
         toast.success(response.data.responseMessage, {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
-        localStorage.setItem('token',response.data.token);
-        console.log("mmmmmmmmToken",response.data.token);
+        localStorage.setItem("token", response.data.token);
+        console.log("mmmmmmmmToken", response.data.token);
       })
       .catch((error) => {
         if (error.response) {
@@ -114,7 +114,6 @@ const Passcode: React.FC = () => {
     console.log(userDataa, "dataaaa");
   };
 
-
   const handleSubmit = () => {
     const userPasscode: passcodeValue = {
       businessId: 4,
@@ -134,7 +133,6 @@ const Passcode: React.FC = () => {
         toast.success(response.data.responseMessage, {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
-       
       })
 
       .catch((error) => {
@@ -349,24 +347,46 @@ const Passcode: React.FC = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form className="px-3" onSubmit={handleSubmit1}>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Enter email to reset passcode</Form.Label>
-              <Form.Control type="email" placeholder="E-mail address"  value={dataa.emailId}
-                onChange={handleChange1} name="emailId"/>
-            </Form.Group>
-          
-        {/* <Link to={`/resetpasscode/${id}`} > */}
-          <Button
-          type="submit"
-            variant="danger"
-            // onClick={handleClose}
-            className="forgetdiv rounded-pill px-3 m-3 "
+          <Formik
+            validationSchema={schema}
+            onSubmit={handleSubmit1}
+            initialValues={{
+              emailId: "",
+            }}
           >
-            Send
-          </Button>
-          {/* </Link> */}
-          </Form>
+            {({ errors, values, handleChange }) => (
+              <FormikForm className="px-3">
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Enter email to reset passcode</Form.Label>
+                  <Form.Control
+                    placeholder="E-mail address"
+                    value={values.emailId}
+                    onChange={handleChange}
+                    name="emailId"
+                  />
+                  <div className="text-danger">{errors.emailId}</div>
+                </Form.Group>
+
+                {/* <Link to={`/resetpasscode/${id}`} > */}
+                <Button
+                  type="submit"
+                  variant="danger"
+                  // onClick={handleClose}
+                  className="forgetdiv loginButton rounded-pill px-3 m-3 "
+                >
+                  {!spinner1 ? (
+                    <span>Send</span>
+                  ) : (
+                    <span className="spinner-border  " role="status"></span>
+                  )}
+                </Button>
+                {/* </Link> */}
+              </FormikForm>
+            )}
+          </Formik>
         </Modal.Body>
       </Modal>
 

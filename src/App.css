@@ -243,4 +243,12 @@ a{
   background: white !important;
    border-color:white; 
 }
+.text-danger{
+  cursor:pointer;
+}
+.textShadow{
+
+  color: rgb(255, 10, 10);
+  text-shadow: 2px 2px 4px #febdbd;
+}
  

@@ -6,11 +6,27 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 import { ToastContainer, toast } from "react-toastify";
+import { Formik,Form as FormikForm} from 'formik';
+ 
+import * as yup from "yup";
 
 type FormValues = {
   emailId: string;
   password: string;
 };
+const schema = yup.object().shape({
+  emailId: yup.string().email("Please enter a valid e-mail").required(),
+  password: yup.string()
+  .required("This field is required")
+  .min(8, "Pasword must be 8 or more characters")
+  .matches(/(?=.*[a-z])(?=.*[A-Z])\w+/, "Password ahould contain at least one uppercase and lowercase character")
+  .matches(/\d/, "Password should contain at least one number")
+  .matches(/[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/, "Password should contain at least one special character"),
+
+});
+const schemaa = yup.object().shape({
+  emailId: yup.string().email("Please enter a valid e-mail").required(),
+});
 
 function Login() {
   const [Show, setShow] = useState(false);
@@ -18,47 +34,47 @@ function Login() {
   const handleShow = () => setShow(true);
   const [spinner, setSpinner] = useState(false);
   const [spinner1, setSpinner1] = useState(false);
-  const [dataa, setDataa] = useState({
-    emailId: "",
-  });
+  // const [dataa, setDataa] = useState({
+  //   emailId: "",
+  // });
 
   const navigate = useNavigate();
 
-  const [error, setError] = useState<FormValues>({
-    emailId: "",
-    password: "",
-  });
+  // const [error, setError] = useState<FormValues>({
+  //   emailId: "",
+  //   password: "",
+  // });
 
   const [data, setData] = useState({
     emailId: "",
     password: "",
   });
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setData({
-      ...data,
-      [e.target.name]: value,
-    });
+  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const value = e.target.value;
+  //   setData({
+  //     ...data,
+  //     [e.target.name]: value,
+  //   });
 
-    setError({ emailId: "", password: "" });
-  };
+  //   setError({ emailId: "", password: "" });
+  // };
 
-  const handleChange1 = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setDataa({
-      ...dataa,
-      [e.target.name]: value,
-    });
-    console.log(dataa);
-  };
+  // const handleChange1 = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const value = e.target.value;
+  //   setDataa({
+  //     ...dataa,
+  //     [e.target.name]: value,
+  //   });
+  //   console.log(dataa);
+  // };
 
-  const handleSubmit1 = (e: any) => {
-    e.preventDefault();
+  const handleSubmit1 = (values: any) => {
+   debugger;
     setSpinner1(true);
 
     const userDataa = {
       businessId: "4",
-      emailId: dataa.emailId,
+      emailId: values.emailId,
     };
 
     axios
@@ -97,15 +113,15 @@ function Login() {
     console.log(userDataa, "dataaaa");
   };
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
+  const handleSubmit = (values: any) => {
+    // e.preventDefault();
     setSpinner(true);
 
     const userData = {
       businessId: "4",
-      emailId: data.emailId,
+      emailId: values.emailId,
       applicationId: "58",
-      password: data.password,
+      password: values.password,
     };
 
     axios
@@ -146,7 +162,20 @@ function Login() {
   return (
     <>
       <div className="  mainBox container rounded shadow align-item-center">
-        <form onSubmit={handleSubmit}>
+      <Formik
+      validationSchema={schema}
+      onSubmit={handleSubmit}
+      initialValues={{
+       
+        emailId: '',
+        password:'',
+       
+      }}
+    >
+      {({ errors,values,handleChange }) => (
+ 
+ 
+        <FormikForm  >
           {/* <!-- Email input --> */}
           <div className=" mainBox  container py-2">
             <div className="col-8 h-2 p-4 rounded-circle">
@@ -163,15 +192,18 @@ function Login() {
                   Email{" "}
                 </label>
                 <input
-                  type="email"
+                 
                   id="validationDefault03"
                   name="emailId"
                   className="form-control  rounded-pill"
                   placeholder="Email Address"
                   onChange={handleChange}
-                  value={data.emailId}
-                  required
+                  value={values.emailId}
+                 
                 />
+                 <div className="text-danger textShadow">
+                {errors.emailId}
+              </div>
               </div>
             </div>
 
@@ -191,9 +223,12 @@ function Login() {
                   className="form-control rounded-pill"
                   placeholder="Password "
                   onChange={handleChange}
-                  value={data.password}
-                  required
+                  value={values.password}
+                 
                 />
+                 <div className="text-danger textShadow">
+                {errors.password}
+              </div>
               </div>
             </div>
 
@@ -239,7 +274,9 @@ function Login() {
 
             
           </div>
-        </form>
+        </FormikForm >
+        )}
+        </Formik> 
       </div>
 
       <Modal
@@ -263,23 +300,38 @@ function Login() {
           ></button>
         </Modal.Header>
         <Modal.Body>
-          <Form className="px-3" onSubmit={handleSubmit1}>
+        <Formik
+      validationSchema={schemaa}
+      onSubmit={handleSubmit1}
+      initialValues={{
+       
+        emailId: '',
+       
+      }}
+    >
+      {({ errors,values,handleChange }) => (
+ 
+          <FormikForm className="px-3"  >
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Enter email to reset password</Form.Label>
+              <Form.Label>Enter email to reset passcode</Form.Label>
               <Form.Control
-                type="email"
+              
                 placeholder="E-mail address"
+                value={values.emailId}
+               onChange={handleChange}
                 name="emailId"
-                value={dataa.emailId}
-                onChange={handleChange1}
-                required
+                 
               />
+               <div className="text-danger">
+                {errors.emailId}
+              </div>
             </Form.Group>
 
+           
             <Button
               type="submit"
               variant="danger"
-              // onClick={handleSubmit1}
+             
               className="forgetButton loginButton rounded-pill px-3 m-3 "
             >
               {!spinner1 ? (
@@ -288,7 +340,11 @@ function Login() {
                 <span className="spinner-border  " role="status"></span>
               )}
             </Button>
-          </Form>
+           
+          </FormikForm>
+            )}
+           </Formik> 
+         
         </Modal.Body>
       </Modal>
     </>
