@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { useState } from "react";
 
@@ -15,9 +15,9 @@ type FormValues = {
   password: string;
 };
 const schema = yup.object().shape({
-  emailId: yup.string().email("Please enter a valid e-mail").required(),
+  emailId: yup.string().email("Please enter a valid e-mail").required(" *Email is required"),
   password: yup.string()
-  .required("This field is required")
+  .required(" *This field is required")
   .min(8, "Pasword must be 8 or more characters")
   .matches(/(?=.*[a-z])(?=.*[A-Z])\w+/, "Password ahould contain at least one uppercase and lowercase character")
   .matches(/\d/, "Password should contain at least one number")
@@ -201,7 +201,7 @@ function Login() {
                   value={values.emailId}
                  
                 />
-                 <div className="text-danger textShadow">
+                 <div className="text-danger textShadow float-start mx-2">
                 {errors.emailId}
               </div>
               </div>
@@ -226,7 +226,7 @@ function Login() {
                   value={values.password}
                  
                 />
-                 <div className="text-danger textShadow">
+                 <div className="text-danger textShadow float-start m-2">
                 {errors.password}
               </div>
               </div>
@@ -322,7 +322,7 @@ function Login() {
                 name="emailId"
                  
               />
-               <div className="text-danger">
+               <div className="text-danger textShadow ">
                 {errors.emailId}
               </div>
             </Form.Group>

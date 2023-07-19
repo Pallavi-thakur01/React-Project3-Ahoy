@@ -367,10 +367,10 @@ const Passcode: React.FC = () => {
                     onChange={handleChange}
                     name="emailId"
                   />
-                  <div className="text-danger">{errors.emailId}</div>
+                  <div className="text-danger  textShadow ">{errors.emailId}</div>
                 </Form.Group>
 
-                {/* <Link to={`/resetpasscode/${id}`} > */}
+                
                 <Button
                   type="submit"
                   variant="danger"
